@@ -1,0 +1,11 @@
+[ 
+    {
+      "bucket" : "hm-storage",
+      "folder" : "/images",
+      "apps"   : ["app_da6cd5e9-eead-446d-8fbd-024bd07f998f"]
+  
+    },
+    {
+      "bucket_host" : "cellar-fr-north-hds-c1.services.clever-cloud.com"
+    }
+  ]
