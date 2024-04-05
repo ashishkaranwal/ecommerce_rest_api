@@ -3,6 +3,8 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
+
+
 exports.createPlan = async (req, res, next) => {
   try {
     const newPlan = {
@@ -32,10 +34,18 @@ exports.getPlans = (req, res, next) => {
   };
 
   VendorPlan.find({}, {}, query)
-    .select("-_id -__v -updatedAt")
+    .select("-__v -updatedAt")
     .exec((err, plans) => {
-      if (err) return res.status(400).send({ message: "showing order", err });
+      if (err) return res.status(400).send({code:400, message: "showing order", err });
       return res.status(200).send({code:200, message: "showing all plans", data: plans });
     });
+};
+
+exports.getPlan = async (id) => {
+  try {
+    const foundPlan = await VendorPlan.findById(id); //returns the first document that matches the query criteria or null
+    return foundPlan;
+  } catch (error) {
+  }
 };
 

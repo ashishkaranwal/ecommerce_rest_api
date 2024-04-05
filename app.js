@@ -10,7 +10,6 @@ const productRoute = require("./routes/prodRoute");
 const cartRoute = require("./routes/cartRoute");
 const adminRoute = require("./routes/adminRoute");
 const userRoute = require("./routes/userRoute");
-const vendorRoute = require("./routes/vendorRoute");
 const swaggerDocument = require("./swagger.json");
 
 
@@ -27,7 +26,6 @@ app.use("/category", categoryRoute);
 app.use("/cart", cartRoute);
 app.use("/admin", adminRoute);
 app.use("/user", userRoute);
-app.use("/vendor", vendorRoute);
 // Handle Error Requests
 
 app.get("/", (req, res) => {

@@ -1,35 +1,32 @@
-const bankTransaction = require("../models/bankTransactionModel");
-const vendorController =require("../controllers/vendorController");
+const address = require("../models/addressModel");
+
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
-exports.createTransaction = async (payload) => {
+exports.addAddress = async (req,res) => {
   try {
 
-    const newTransaction = {
-      transactionDescription: payload.body.transactionDescription,
-      transactionType: payload.body.transactionType,
-      transactionAmount: payload.body.transactionAmount,
-      transactionPgName: payload.body.transactionPgName,
-      transactionStatus: payload.body.transactionStatus,
-      transactionOrderId: payload.body.orderId
+    const newAddress = {
+      streetAddress: req.body.transactionDescription,
     };
     
-    const transaction = await bankTransaction.create(newTransaction);
+    const address = await address.create(newAddress);
 
-    if(transaction!=null)
-      return transaction;
+    if(address!=null)
+      return  res.status(200).send({code:200,message: "New Address added", data: address});
+
+    return  res.status(400).send({code:400,message: "New Address not added", data: null});
     
   } catch (error) {
-    console.log(error);
+    return  res.status(400).send({code:400,message: "Something went wrong while adding address.", data: error});
   }
 };
 
 
-exports.getTransaction = async (req, res) => {
+exports.getAddress = async (req, res) => {
   try {
-    const foundtransaction = await bankTransaction.findOne({transactionRefId: req.body.txnId }); //returns the first document that matches the query criteria or null
+    const address = await bankTransaction.findOne({transactionRefId: req.body.txnId }); //returns the first document that matches the query criteria or null
     if (!foundtransaction) return res.status(400).send({ message: "Invalid txn id" });
 
     return res.status(200).send({code:200,message: "success", data: foundtransaction});
@@ -53,6 +50,7 @@ exports.updateTransaction = async (updatedata,tid) => {
             vendorCurrentPlan: updatedata.transactionStatus,
             vendorActivePlanExipry: updatedata.transactionRespMsg
           };
+
 
           ///Update vendor data
           vendorController.updateVendor(dataToUpdate, transaction.transactionOwnerId);

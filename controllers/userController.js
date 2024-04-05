@@ -116,6 +116,8 @@ exports.profile = async (req, res) => {
 
 };
 
+
+
 const createUserObj = async (req) => {
   return {
     firstName: req.body.firstName,
@@ -123,5 +125,6 @@ const createUserObj = async (req) => {
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 10),
     phone: req.body.phone,
+    roles: req.body.roles
   };
 }

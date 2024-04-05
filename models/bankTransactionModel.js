@@ -27,13 +27,15 @@ const bankTransactionSchema = new mongoose.Schema(
         type: String,
         required: true,
       },
-    transactionOwnerId: {
+      transactionOrderId: {
         type: String,
-        required: true,
+        required: false,
+        default: null,
       },
-    transactionOwnerType: {
+      transactionRespMsg: {
         type: String,
-        required: true,
+        required: false,
+        default: null,
       },
 
   },
